@@ -38,22 +38,15 @@ class SearchViewController: UIViewController {
         
         searchController.searchBar.delegate = self
         searchController.searchBar.searchBarStyle = .prominent
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = "Artist"
         searchController.searchBar.autocapitalizationType = .words
         //        searchController.searchBar.tintColor = .green
         searchController.searchBar.barTintColor = .red
-        //        searchController.searchBar.setValue("İmtina", forKey: "_cancelButtonText")
+        //        searchController.searchBar.setValue("Cancel 2", forKey: "_cancelButtonText")
         searchController.searchBar.enablesReturnKeyAutomatically = false
         searchController.searchBar.returnKeyType = .done
         
-        //        searchController.searchBar.scopeButtonTitles = ["All", "Some", "None"]
-        //        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "_searchField") as? UITextField
-        //        textFieldInsideSearchBar?.backgroundColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 0.09)
-        
         navigationItem.searchController = searchController
-        
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menuIcon"), style: .plain, target: self, action: #selector(SSASideMenu.presentLeftMenuViewController))
-        
     }
     
     
@@ -80,7 +73,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "artistSearchCell", for: indexPath) as! SearchArtistTableViewCell
         
-        cell.setValues(with: artistSearchResult[indexPath.row], imageSize: .large)
+        cell.setValues(with: artistSearchResult[indexPath.row])
         
         return cell
     }

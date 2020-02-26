@@ -19,19 +19,19 @@ class ArtistOverviewViewController: UIViewController {
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var albumsTableView: UITableView!
     
+    @IBOutlet weak var albumsLabel: UILabel!
+    
     private var selectedArtistIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         setupDetails()
         artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
-        //        albumsTableView.fadeView(style: .top, percentage: 0.5)
     }
     
     func setupDetails() {
-        if let imageURL = artist?.pictureBig {
+        if let imageURL = artist?.pictureXl {
             if let url = URL(string: imageURL) {
                 
                 artistImageView.af.setImage(withURL: url) { [weak self] image in
@@ -39,8 +39,12 @@ class ArtistOverviewViewController: UIViewController {
                         if let image = UIImage(data: data) {
                             image.getColors(quality: .lowest, { colors in
                                 self?.colors = colors
-                                self?.view.backgroundColor = colors?.background ?? .red
                                 self?.albumsTableView.reloadData()
+                                self?.albumsLabel.textColor = colors?.detail
+                                
+                                UIView.animate(withDuration: 0.5) {
+                                    self?.view.backgroundColor = colors?.background ?? .red
+                                }
                             })
                         }
                     }
@@ -100,9 +104,17 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! AlbumTableViewCell
         cell.albumNameLabel.fadeView(style: .right, percentage: 0.5, bottomColor: .red)
+        
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
+        UIView.animate(withDuration: 0.5, animations: {
+            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        })
     }
+    
+    
     
 }

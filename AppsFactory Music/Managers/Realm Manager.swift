@@ -21,7 +21,7 @@ class RealmManager {
             configuration.deleteRealmIfMigrationNeeded = true
 //            configuration.schemaVersion = 999
             RealmManager.realm = try Realm(configuration: configuration)
-            print(RealmManager.realm?.configuration.fileURL ?? "")
+//            print(RealmManager.realm?.configuration.fileURL ?? "")
         } catch let error {
             print(error.localizedDescription)
         }

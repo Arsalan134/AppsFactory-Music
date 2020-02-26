@@ -16,16 +16,18 @@ class AlbumTableViewCell: UITableViewCell {
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var albumDetailLabel: UILabel!
     
+    var alreadyAnimated = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+     
+//        [indexLabel, albumImageView, albumNameLabel, albumDetailLabel].forEach({$0.showAnimationSkeleton()})
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        selectionStyle = .none
     }
 
     func setValues(with album: Album, imageSize size: ImageSize, index: Int, colors: UIImageColors?) {
@@ -43,8 +45,8 @@ class AlbumTableViewCell: UITableViewCell {
         albumNameLabel.text = album.title
         albumDetailLabel.text = album.releaseDate
         
+        // Image Downloading
         albumImageView.image = nil
-        
         if let imageURL = album.coverMedium {
             if let url = URL(string: imageURL) {
                 albumImageView.af.setImage(withURL: url)

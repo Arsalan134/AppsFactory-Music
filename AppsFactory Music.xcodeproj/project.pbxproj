@@ -24,6 +24,8 @@
 		5C8289C12406A3EA0014D236 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289C02406A3EA0014D236 /* SearchViewController.swift */; };
 		5C8289C32406A4020014D236 /* SearchArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289C22406A4020014D236 /* SearchArtistTableViewCell.swift */; };
 		5C8289C82406A57D0014D236 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289C72406A57D0014D236 /* API.swift */; };
+		5C88648E240705B400520D98 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C88648D240705B400520D98 /* Structs.swift */; };
+		5C9887132406F24E0050F16A /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9887122406F24E0050F16A /* Animator.swift */; };
 		5CBA88C72406B83200414AE2 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA88C62406B83200414AE2 /* AlbumTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		5C8289C02406A3EA0014D236 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5C8289C22406A4020014D236 /* SearchArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchArtistTableViewCell.swift; sourceTree = "<group>"; };
 		5C8289C72406A57D0014D236 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		5C88648D240705B400520D98 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		5C9887122406F24E0050F16A /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = SOURCE_ROOT; };
 		5CBA88C62406B83200414AE2 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		FF555893E3D1033586E41D96 /* Pods-AppsFactory Music.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsFactory Music.release.xcconfig"; path = "Target Support Files/Pods-AppsFactory Music/Pods-AppsFactory Music.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,7 +154,9 @@
 		5C8289AD2406A0630014D236 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5C9887122406F24E0050F16A /* Animator.swift */,
 				5C8289B22406A1EE0014D236 /* Extensions.swift */,
+				5C88648D240705B400520D98 /* Structs.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -295,6 +301,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C88648E240705B400520D98 /* Structs.swift in Sources */,
+				5C9887132406F24E0050F16A /* Animator.swift in Sources */,
 				5C82899B2406A0480014D236 /* ViewController.swift in Sources */,
 				5C8289C12406A3EA0014D236 /* SearchViewController.swift in Sources */,
 				5C8289B32406A1EE0014D236 /* Extensions.swift in Sources */,

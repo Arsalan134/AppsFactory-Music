@@ -25,12 +25,15 @@ class SearchArtistTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setValues(with artist: Artist, imageSize size: ImageSize) {
+    func setValues(with artist: Artist) {
         artistNameLabel.text = artist.name
+    
+        artistImageView.layer.cornerRadius = 10
+        artistImageView.clipsToBounds = true
         
         artistImageView.image = nil
         
-        if let imageURL = artist.pictureSmall {
+        if let imageURL = artist.pictureMedium {
             if let url = URL(string: imageURL) {
                 artistImageView.af.setImage(withURL: url)
             }
