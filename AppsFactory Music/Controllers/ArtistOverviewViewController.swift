@@ -13,8 +13,7 @@ class ArtistOverviewViewController: UIViewController {
     
     var artist: Artist?
     
-    private var albums: [Album] = []
-    
+    private var albumResponse: AlbumResponse?
     private var colors: UIImageColors?
     
     @IBOutlet weak var artistImageView: UIImageView!
@@ -35,13 +34,13 @@ class ArtistOverviewViewController: UIViewController {
         if let imageURL = artist?.pictureBig {
             if let url = URL(string: imageURL) {
                 
-                artistImageView.af.setImage(withURL: url) { [unowned self] image in
+                artistImageView.af.setImage(withURL: url) { [weak self] image in
                     if let data = image.data {
                         if let image = UIImage(data: data) {
                             image.getColors(quality: .lowest, { colors in
-                                self.colors = colors
-                                self.view.backgroundColor = colors?.background ?? .red
-                                self.albumsTableView.reloadData()
+                                self?.colors = colors
+                                self?.view.backgroundColor = colors?.background ?? .red
+                                self?.albumsTableView.reloadData()
                             })
                         }
                     }
@@ -50,9 +49,9 @@ class ArtistOverviewViewController: UIViewController {
         }
         
         if let artistID = artist?.id {
-            API.downloadAlbums(withID: artistID) { [unowned self] albums in
-                self.albums = albums
-                self.albumsTableView.reloadData()
+            API.downloadAlbums(withID: artistID) { [weak self] albumsData in
+                self?.albumResponse = albumsData
+                self?.albumsTableView.reloadData()
             }
         }
     }
@@ -60,23 +59,25 @@ class ArtistOverviewViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? AlbumDetailsViewController {
             if let index = selectedArtistIndex {
-                destination.album = albums[index]
+                destination.album = albumResponse?.data?[index]
             }
         }
     }
     
 }
 
-extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSource {
+extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return albumResponse?.data?.count ?? 0
     }
     
+    //MARK:- Pagination
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as! AlbumTableViewCell
-        
-        cell.setValues(with: albums[indexPath.row], imageSize: .small, index: indexPath.row, colors: colors)
+        if let album = albumResponse?.data?[indexPath.row] {
+            cell.setValues(with: album, imageSize: .small, index: indexPath.row, colors: colors)
+        }
         return cell
     }
     
@@ -87,6 +88,21 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedArtistIndex = indexPath.row
         performSegue(withIdentifier: "albumDetailViewSegue", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.max()?.row == (albumResponse?.data?.count ?? 0) - 1 {
+            API.downloadAlbums(withURL: albumResponse?.next) { [weak self] albumResponse in
+                self?.albumResponse?.next = albumResponse.next
+                self?.albumResponse?.data?.append(contentsOf: albumResponse.data ?? [])
+                self?.albumsTableView.reloadData()
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! AlbumTableViewCell
+        cell.albumNameLabel.fadeView(style: .right, percentage: 0.5, bottomColor: .red)
     }
     
 }

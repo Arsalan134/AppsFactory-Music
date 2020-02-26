@@ -176,9 +176,9 @@
                                                     <rect key="frame" x="58" y="16" width="70" height="69"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXI-om-jct">
-                                                    <rect key="frame" x="136" y="23" width="169" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXI-om-jct" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                                    <rect key="frame" x="136" y="23" width="194" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -191,14 +191,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nl8-Rs-hgQ">
-                                                    <rect key="frame" x="136" y="60" width="169" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <rect key="frame" x="135" y="60" width="195" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYN-h3-Q2e">
-                                                    <rect key="frame" x="361" y="38" width="33" height="30"/>
+                                                    <rect key="frame" x="338" y="25" width="56" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -206,6 +206,7 @@
                                                     <connections>
                                                         <action selector="morePressed" destination="sDt-Mb-Ob6" eventType="touchUpInside" id="AGC-BT-PXC"/>
                                                         <action selector="morePressed" destination="M6a-Tk-Swl" eventType="touchUpInside" id="kzn-oJ-58r"/>
+                                                        <action selector="moreSelected:" destination="dKB-B9-uDh" eventType="touchUpInside" id="Cie-x4-2ai"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -223,6 +224,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="UbN-Xp-ydL" id="aHQ-yL-UYb"/>
                                     <outlet property="delegate" destination="UbN-Xp-ydL" id="mbA-5Y-Ppb"/>
+                                    <outlet property="prefetchDataSource" destination="UbN-Xp-ydL" id="PoO-h4-1TN"/>
                                 </connections>
                             </tableView>
                         </subviews>

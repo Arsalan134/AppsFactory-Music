@@ -44,11 +44,16 @@ class API {
         }
     }
     
-    static func downloadAlbums(withID id: Int, completion: @escaping (_ albums: [Album]) -> Void) {
+    static func downloadAlbums(withID id: Int? = nil, withURL url: String? = nil, completion: @escaping (_ albumResponse: AlbumResponse) -> Void) {
         
-        let url = completeUrl("/artist/\(id)/albums")
-        
-        AF.request(url).responseJSON { response in
+        var requestURL = ""
+        if let id = id {
+            requestURL = completeUrl("/artist/\(id)/albums")
+        } else if let url = url {
+            requestURL = url
+        }
+            
+        AF.request(requestURL).responseJSON { response in
             
             guard let data = response.data else {
                 return
@@ -58,7 +63,7 @@ class API {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let albumsResponse = try decoder.decode(AlbumResponse.self, from: data)
-                completion(albumsResponse.data ?? [])
+                completion(albumsResponse)
             } catch {
                 print(error.localizedDescription)
             }

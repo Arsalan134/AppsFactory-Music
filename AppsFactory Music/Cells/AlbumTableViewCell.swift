@@ -21,7 +21,7 @@ class AlbumTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -33,14 +33,17 @@ class AlbumTableViewCell: UITableViewCell {
         albumImageView.layer.cornerRadius = 10
         albumImageView.clipsToBounds = true
         
-        indexLabel.text = "\(index + 1)"
-        
-        indexLabel.textColor = colors?.secondary
+        // Colors
+        indexLabel.textColor = colors?.detail
         albumNameLabel.textColor = colors?.primary
-        albumDetailLabel.textColor = colors?.detail
+        albumDetailLabel.textColor = colors?.secondary
 
+        // Text
+        indexLabel.text = "\(index + 1)"
         albumNameLabel.text = album.title
         albumDetailLabel.text = album.releaseDate
+        
+        albumImageView.image = nil
         
         if let imageURL = album.coverMedium {
             if let url = URL(string: imageURL) {
@@ -49,5 +52,10 @@ class AlbumTableViewCell: UITableViewCell {
         }
 
     }
+    
+    @IBAction func moreSelected(_ sender: UIButton) {
+        print("More")
+    }
+    
     
 }

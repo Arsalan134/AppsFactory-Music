@@ -15,6 +15,7 @@ enum ImageSize: String {
 
 struct AlbumResponse: Decodable {
     var data: [Album]?
+    var prex: String?
     var next: String?
     var total: Int?
 }

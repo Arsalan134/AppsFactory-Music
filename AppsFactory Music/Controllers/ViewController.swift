@@ -26,10 +26,10 @@ class ViewController: UIViewController {
         
         // Retrieve local albums
         
-        RealmManager.shared.loadAlbumsFromRealm { [unowned self] albums in
-            self.localAlbums = albums
-            self.activityIndicator.stopAnimating()
-            self.albumsCollectionView.reloadData()
+        RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
+            self?.localAlbums = albums
+            self?.activityIndicator.stopAnimating()
+            self?.albumsCollectionView.reloadData()
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(search))

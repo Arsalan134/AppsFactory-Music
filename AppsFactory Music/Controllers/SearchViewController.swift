@@ -112,9 +112,9 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UI
     func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text?.count ?? 0 > 0 {
             if let text = searchController.searchBar.text  {
-                API.downloadArtists(withKeyword: text) { [unowned self] artists in
-                    self.artistSearchResult = artists
-                    self.artistsTableView.reloadData()
+                API.downloadArtists(withKeyword: text) { [weak self] artists in
+                    self?.artistSearchResult = artists
+                    self?.artistsTableView.reloadData()
                 }
             }
         }
