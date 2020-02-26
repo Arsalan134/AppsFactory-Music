@@ -8,13 +8,15 @@
 
 import UIKit
 import UIImageColors
+import JGProgressHUD
 
 class ArtistOverviewViewController: UIViewController {
     
     var artist: Artist?
-    
     private var albumResponse: AlbumResponse?
     private var colors: UIImageColors?
+    
+    //    private var locallyStoredAlbums: [Album] = []
     
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var albumsTableView: UITableView!
@@ -23,12 +25,13 @@ class ArtistOverviewViewController: UIViewController {
     
     private var selectedArtistIndex: Int?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupDetails()
         artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
+        
+        //        loadLocalAlbums()
     }
     
     func setupDetails() {
@@ -36,19 +39,16 @@ class ArtistOverviewViewController: UIViewController {
             if let url = URL(string: imageURL) {
                 
                 artistImageView.af.setImage(withURL: url) { [weak self] image in
-                    if let data = image.data {
-                        if let image = UIImage(data: data) {
-                            image.getColors(quality: .lowest, { colors in
-                                self?.colors = colors
-                                self?.albumsTableView.reloadData()
-                                self?.albumsLabel.textColor = colors?.detail
-                                
-                                UIView.animate(withDuration: 0.5) {
-                                    self?.view.backgroundColor = colors?.background ?? .red
-                                }
-                            })
+                    
+                    self?.artistImageView.image?.getColors(quality: .lowest, { colors in
+                        self?.colors = colors
+                        self?.albumsTableView.reloadData()
+                        self?.albumsLabel.textColor = colors?.detail
+                        print(Thread.isMainThread)
+                        UIView.animate(withDuration: 0.5) {
+                            self?.view.backgroundColor = colors?.background ?? .red
                         }
-                    }
+                    })
                 }
             }
         }
@@ -82,11 +82,15 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as! AlbumTableViewCell
         
         if let album = albumResponse?.data?[indexPath.row] {
+//            RealmManager.shared.loadAlbumsFromRealm { albums in
+//                cell.iphoneImageView.isHidden = albums.filter({$0.id == album.id}).isEmpty
+//            }
             cell.setValues(with: album, index: indexPath.row, colors: colors)
         }
         
         cell.moreButton.tag = indexPath.row
         cell.moreDelegate = self
+        
         return cell
     }
     
@@ -121,6 +125,18 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 extension ArtistOverviewViewController: MorePressedDelegate {
+    
+    private func presentHUD(with message: String) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.vibrancyEnabled = true
+        hud.interactionType = .blockNoTouches
+        hud.isUserInteractionEnabled = false
+        hud.textLabel.text = message
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 1.0)
+    }
+    
     func morePressed(withAlbumIndex index: Int) {
         
         guard let album = self.albumResponse?.data?[index] else {
@@ -129,12 +145,16 @@ extension ArtistOverviewViewController: MorePressedDelegate {
         
         let optionMenu = UIAlertController(title: "Chose an option", message: "Choose an option", preferredStyle: .actionSheet)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
             RealmManager.shared.deleteAlbumFromRealm(withID: album.id)
+            self?.presentHUD(with: "Deleted")
+//            self?.albumsTableView.reloadData()
         }
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             RealmManager.shared.saveAlbumToRealm(album)
+            self?.presentHUD(with: "Saved")
+            self?.albumsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         }
         
         RealmManager.shared.loadAlbumsFromRealm { albums in
@@ -152,8 +172,6 @@ extension ArtistOverviewViewController: MorePressedDelegate {
             
             self.present(optionMenu, animated: true)
         }
-        
-        
     }
     
     

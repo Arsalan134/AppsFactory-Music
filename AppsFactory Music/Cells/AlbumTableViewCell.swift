@@ -20,6 +20,7 @@ class AlbumTableViewCell: UITableViewCell {
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var albumDetailLabel: UILabel!
     @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var iphoneImageView: UIImageView!
     
     weak var moreDelegate: MorePressedDelegate?
     
@@ -27,7 +28,7 @@ class AlbumTableViewCell: UITableViewCell {
         super.awakeFromNib()
      
     }
-    
+     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
