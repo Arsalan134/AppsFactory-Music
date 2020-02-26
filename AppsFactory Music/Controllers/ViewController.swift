@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     private var localAlbums: [Album] = []
     
     @IBOutlet weak var albumsCollectionView: UICollectionView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var selectedCategory: String?
@@ -24,15 +23,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Retrieve local albums
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(search))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        // Retrieve local albums
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
             self?.localAlbums = albums
             self?.activityIndicator.stopAnimating()
             self?.albumsCollectionView.reloadData()
         }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(search))
     }
     
     @objc func search() {
@@ -44,10 +46,6 @@ class ViewController: UIViewController {
             if let index = selectedAlbumIndex {
                 destination.album = localAlbums[index]
             }
-            //        } else if let destination = segue.destination as? SearchViewController {
-            //            if let index = selectedAlbumIndex {
-            //                destination.album = localAlbums[index]
-            //            }
         }
     }
     
@@ -62,7 +60,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
         
-        cell.setValues(with: localAlbums[indexPath.row], imageSize: .large)
+        cell.setValues(with: localAlbums[indexPath.row])
         
         return cell
     }
@@ -70,7 +68,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         selectedAlbumIndex = indexPath.row
-        performSegue(withIdentifier: "detailViewSegue", sender: nil)
+        performSegue(withIdentifier: "albumDetailViewSegue", sender: nil)
         
     }
     
@@ -93,4 +91,3 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     
 }
-

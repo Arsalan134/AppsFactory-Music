@@ -9,19 +9,23 @@
 import UIKit
 import UIImageColors
 
+protocol MorePressedDelegate: AnyObject {
+    func morePressed(withAlbumIndex index: Int)
+}
+
 class AlbumTableViewCell: UITableViewCell {
 
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var albumDetailLabel: UILabel!
+    @IBOutlet weak var moreButton: UIButton!
     
-    var alreadyAnimated = false
+    weak var moreDelegate: MorePressedDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
      
-//        [indexLabel, albumImageView, albumNameLabel, albumDetailLabel].forEach({$0.showAnimationSkeleton()})
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,7 +34,7 @@ class AlbumTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
 
-    func setValues(with album: Album, imageSize size: ImageSize, index: Int, colors: UIImageColors?) {
+    func setValues(with album: Album, index: Int, colors: UIImageColors?) {
         
         albumImageView.layer.cornerRadius = 10
         albumImageView.clipsToBounds = true
@@ -52,11 +56,10 @@ class AlbumTableViewCell: UITableViewCell {
                 albumImageView.af.setImage(withURL: url)
             }
         }
-
     }
     
     @IBAction func moreSelected(_ sender: UIButton) {
-        print("More")
+        moreDelegate?.morePressed(withAlbumIndex: sender.tag)
     }
     
     

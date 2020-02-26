@@ -9,17 +9,12 @@
 import Foundation
 import RealmSwift
 
-enum ImageSize: String {
-    case small, medium, large, extralarge, mega
-}
-
 struct AlbumResponse: Decodable {
     var data: [Album]?
     var prex: String?
     var next: String?
     var total: Int?
 }
-
 
 class Album: Object, Decodable {
     
@@ -33,12 +28,12 @@ class Album: Object, Decodable {
     @objc dynamic var coverXl: String?
     @objc dynamic var tracklist: String?
     
-    //    var image = List<Image>()
-    
     override static func primaryKey() -> String? {
         return "id"
     }
-    //    private enum CodingKeys: String, CodingKey {
-    //        case name, artist, url, id = "mbid", image
-    //    }
+    
+//    static func ==(lhs: Album, rhs: Album) -> Bool {
+//        return lhs.title == rhs.title
+//    }
+    
 }

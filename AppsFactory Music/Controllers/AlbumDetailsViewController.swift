@@ -51,14 +51,15 @@ class AlbumDetailsViewController: UIViewController {
         
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func previewActions() -> [UIPreviewActionItem] {
+        let previewAction1 = UIPreviewAction.init(title: "Preview Action 1", style: .default) { (action, vcRefrence) in
+            print("Tapped")
+        }
+        
+        let previewAction2 = UIPreviewAction.init(title: "Preview Action 2", style: .default) { (action, vcRefrence) in
+            print("Tapped")
+        }
+        return [previewAction1, previewAction2]
+    }
     
 }

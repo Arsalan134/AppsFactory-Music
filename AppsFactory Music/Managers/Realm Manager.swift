@@ -19,9 +19,9 @@ class RealmManager {
         do {
             var configuration = Realm.Configuration()
             configuration.deleteRealmIfMigrationNeeded = true
-//            configuration.schemaVersion = 999
+            //            configuration.schemaVersion = 999
             RealmManager.realm = try Realm(configuration: configuration)
-//            print(RealmManager.realm?.configuration.fileURL ?? "")
+            //            print(RealmManager.realm?.configuration.fileURL ?? "")
         } catch let error {
             print(error.localizedDescription)
         }
@@ -48,13 +48,18 @@ class RealmManager {
         completion(Array(albumRealm))
     }
     
-    private static func deleteAlbumFromRealm() {
-        // let cheeseBook = ... Book stored in Realm
-        
-        // Delete an object with a transaction
-        //        try! realm.write {
-        //            realm.delete(cheeseBook)
-        //        }
+    func deleteAlbumFromRealm(withID id: Int) {
+        loadAlbumsFromRealm { albums in
+            if let album = albums.filter({$0.id == id}).first {
+                do {
+                    try RealmManager.realm?.write {
+                        RealmManager.realm?.delete(album)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
 }

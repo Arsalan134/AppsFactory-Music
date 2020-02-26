@@ -23,6 +23,7 @@ class ArtistOverviewViewController: UIViewController {
     
     private var selectedArtistIndex: Int?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,9 +80,13 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
     //MARK:- Pagination
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as! AlbumTableViewCell
+        
         if let album = albumResponse?.data?[indexPath.row] {
-            cell.setValues(with: album, imageSize: .small, index: indexPath.row, colors: colors)
+            cell.setValues(with: album, index: indexPath.row, colors: colors)
         }
+        
+        cell.moreButton.tag = indexPath.row
+        cell.moreDelegate = self
         return cell
     }
     
@@ -107,14 +112,49 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! AlbumTableViewCell
-        cell.albumNameLabel.fadeView(style: .right, percentage: 0.5, bottomColor: .red)
         
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
         UIView.animate(withDuration: 0.5, animations: {
             cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
         })
     }
-    
+}
+
+extension ArtistOverviewViewController: MorePressedDelegate {
+    func morePressed(withAlbumIndex index: Int) {
+        
+        guard let album = self.albumResponse?.data?[index] else {
+            return
+        }
+        
+        let optionMenu = UIAlertController(title: "Chose an option", message: "Choose an option", preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+            RealmManager.shared.deleteAlbumFromRealm(withID: album.id)
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+            RealmManager.shared.saveAlbumToRealm(album)
+        }
+        
+        RealmManager.shared.loadAlbumsFromRealm { albums in
+            if albums.filter({$0.id == album.id}).isEmpty {
+                deleteAction.isEnabled = false
+            } else {
+                saveAction.isEnabled = false
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            optionMenu.addAction(deleteAction)
+            optionMenu.addAction(saveAction)
+            optionMenu.addAction(cancelAction)
+            
+            self.present(optionMenu, animated: true)
+        }
+        
+        
+    }
     
     
 }

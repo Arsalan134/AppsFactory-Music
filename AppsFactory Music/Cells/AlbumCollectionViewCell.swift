@@ -20,22 +20,21 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         
         albumImageView.layer.cornerRadius = 6
         albumImageView.clipsToBounds = true
-        
     }
     
-    func setValues(with album: Album, imageSize size: ImageSize) {
+    func setValues(with album: Album) {
         
         albumNameLabel.text = album.title
-//        albumArtistLabel.text = album.art
+        albumArtistLabel.text = album.releaseDate
         
         albumImageView.image = nil
         
         // Download an Album Image
-//        if let imageURL = album.image.filter({$0.size == size.rawValue}).first?.text {
-//            if let url = URL(string: imageURL) {
-//                albumImageView.af.setImage(withURL: url)
-//            }
-//        }
+        if let imageURL = album.coverMedium {
+            if let url = URL(string: imageURL) {
+                albumImageView.af.setImage(withURL: url)
+            }
+        }
         
     }
     
