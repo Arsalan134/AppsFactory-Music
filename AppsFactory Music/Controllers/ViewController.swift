@@ -1,0 +1,96 @@
+//
+//  ViewController.swift
+//  LastFM Music
+//
+//  Created by Arsalan Iravani on 24/02/2020.
+//  Copyright © 2020 Arsalan Iravani. All rights reserved.
+//
+
+import UIKit
+import RealmSwift
+
+class ViewController: UIViewController {
+    
+    private var localAlbums: [Album] = []
+    
+    @IBOutlet weak var albumsCollectionView: UICollectionView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private var selectedCategory: String?
+    
+    private var selectedAlbumIndex: Int?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Retrieve local albums
+        
+        RealmManager.shared.loadAlbumsFromRealm { [unowned self] albums in
+            self.localAlbums = albums
+            self.activityIndicator.stopAnimating()
+            self.albumsCollectionView.reloadData()
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(search))
+    }
+    
+    @objc func search() {
+        performSegue(withIdentifier: "searchViewSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? AlbumDetailsViewController {
+            if let index = selectedAlbumIndex {
+                destination.album = localAlbums[index]
+            }
+            //        } else if let destination = segue.destination as? SearchViewController {
+            //            if let index = selectedAlbumIndex {
+            //                destination.album = localAlbums[index]
+            //            }
+        }
+    }
+    
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        localAlbums.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
+        
+        cell.setValues(with: localAlbums[indexPath.row], imageSize: .large)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        selectedAlbumIndex = indexPath.row
+        performSegue(withIdentifier: "detailViewSegue", sender: nil)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: collectionView.frame.width * 0.45, height: 250)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let numberOfCellsInRow: CGFloat = 2.0
+        let cellWidth = collectionView.frame.width * 0.45
+        
+        let totalCellWidth = cellWidth * numberOfCellsInRow
+        
+        let inset = (collectionView.frame.width - CGFloat(totalCellWidth)) / (numberOfCellsInRow + 1)
+        
+        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+    }
+    
+    
+    
+}
+
