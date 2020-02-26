@@ -26,6 +26,7 @@ class Album: Object, Decodable {
     @objc dynamic var title: String?
     @objc dynamic var cover: String?
     @objc dynamic var coverSmall: String?
+    @objc dynamic var releaseDate: String?
     @objc dynamic var coverMedium: String?
     @objc dynamic var coverBig: String?
     @objc dynamic var coverXl: String?

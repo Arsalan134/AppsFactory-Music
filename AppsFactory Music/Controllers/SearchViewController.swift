@@ -90,6 +90,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "artistDetailSegue", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 }
 
 extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {

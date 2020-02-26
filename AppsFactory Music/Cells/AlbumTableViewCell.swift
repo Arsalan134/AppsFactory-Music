@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIImageColors
 
 class AlbumTableViewCell: UITableViewCell {
 
@@ -18,7 +19,7 @@ class AlbumTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,9 +28,26 @@ class AlbumTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setValues(with album: Album, imageSize size: ImageSize, index: Int) {
+    func setValues(with album: Album, imageSize size: ImageSize, index: Int, colors: UIImageColors?) {
+        
+        albumImageView.layer.cornerRadius = 10
+        albumImageView.clipsToBounds = true
+        
         indexLabel.text = "\(index + 1)"
         
+        indexLabel.textColor = colors?.secondary
+        albumNameLabel.textColor = colors?.primary
+        albumDetailLabel.textColor = colors?.detail
+
+        albumNameLabel.text = album.title
+        albumDetailLabel.text = album.releaseDate
+        
+        if let imageURL = album.coverMedium {
+            if let url = URL(string: imageURL) {
+                albumImageView.af.setImage(withURL: url)
+            }
+        }
+
     }
     
 }

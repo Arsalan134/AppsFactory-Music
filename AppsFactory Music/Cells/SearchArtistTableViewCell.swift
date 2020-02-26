@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchArtistTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var artistImageView: UIImageView!
     
     @IBOutlet weak var artistNameLabel: UILabel!
@@ -18,15 +18,23 @@ class SearchArtistTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
     func setValues(with artist: Artist, imageSize size: ImageSize) {
         artistNameLabel.text = artist.name
+        
+        artistImageView.image = nil
+        
+        if let imageURL = artist.pictureSmall {
+            if let url = URL(string: imageURL) {
+                artistImageView.af.setImage(withURL: url)
+            }
+        }
     }
     
 }

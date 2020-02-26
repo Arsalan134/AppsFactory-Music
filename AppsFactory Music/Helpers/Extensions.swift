@@ -39,10 +39,10 @@ extension UIView {
         case horizontal
     }
     
-    func fadeView(style: UIViewFadeStyle = .bottom, percentage: Double = 0.07) {
+    func fadeView(style: UIViewFadeStyle = .bottom, percentage: Double = 0.07, bottomColor: UIColor = .white) {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
-        gradient.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [bottomColor.cgColor, UIColor.clear.cgColor]
         
         let startLocation = percentage
         let endLocation = 1 - percentage

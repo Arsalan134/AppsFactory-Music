@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIImageColors
 
 class ArtistOverviewViewController: UIViewController {
     
@@ -14,22 +15,37 @@ class ArtistOverviewViewController: UIViewController {
     
     private var albums: [Album] = []
     
+    private var colors: UIImageColors?
+    
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var albumsTableView: UITableView!
+    
+    private var selectedArtistIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setupDetails()
-        artistImageView.fadeView(style: .bottom, percentage: 0.5)
+        artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
+        //        albumsTableView.fadeView(style: .top, percentage: 0.5)
     }
     
     func setupDetails() {
         if let imageURL = artist?.pictureBig {
             if let url = URL(string: imageURL) {
-                artistImageView.af.setImage(withURL: url)
-                artistImageView.image.color
+                
+                artistImageView.af.setImage(withURL: url) { [unowned self] image in
+                    if let data = image.data {
+                        if let image = UIImage(data: data) {
+                            image.getColors(quality: .lowest, { colors in
+                                self.colors = colors
+                                self.view.backgroundColor = colors?.background ?? .red
+                                self.albumsTableView.reloadData()
+                            })
+                        }
+                    }
+                }
             }
         }
         
@@ -41,16 +57,13 @@ class ArtistOverviewViewController: UIViewController {
         }
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? AlbumDetailsViewController {
+            if let index = selectedArtistIndex {
+                destination.album = albums[index]
+            }
+        }
+    }
     
 }
 
@@ -63,12 +76,17 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as! AlbumTableViewCell
         
-        cell.setValues(with: albums[indexPath.row], imageSize: .small, index: indexPath.row)
+        cell.setValues(with: albums[indexPath.row], imageSize: .small, index: indexPath.row, colors: colors)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedArtistIndex = indexPath.row
+        performSegue(withIdentifier: "albumDetailViewSegue", sender: nil)
     }
     
 }

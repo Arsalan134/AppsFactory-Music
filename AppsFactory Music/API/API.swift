@@ -35,7 +35,6 @@ class API {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                print(response)
                 let artistsResponse = try decoder.decode(ArtistSearchResponse.self, from: data)
                 completion(artistsResponse.data ?? [])
             } catch {
@@ -47,7 +46,7 @@ class API {
     
     static func downloadAlbums(withID id: Int, completion: @escaping (_ albums: [Album]) -> Void) {
         
-        let url = completeUrl("/artist/\(id)/top?limit=50")
+        let url = completeUrl("/artist/\(id)/albums")
         
         AF.request(url).responseJSON { response in
             
@@ -58,7 +57,6 @@ class API {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                print(response)
                 let albumsResponse = try decoder.decode(AlbumResponse.self, from: data)
                 completion(albumsResponse.data ?? [])
             } catch {
@@ -67,25 +65,4 @@ class API {
             
         }
     }
-    
-//    static func downloadAlbums(withKeyword keyword: String, completion: @escaping (_ data: [Album]) -> Void) {
-//
-//        let url = completeUrl("/2.0/?method=album.search&album=\(keyword)&api_key=\(KEY)&format=json")
-//
-//        AF.request(url).responseJSON { response in
-//
-//            guard let data = response.data else {
-//                return
-//            }
-//
-//            do {
-//                let albumsResponse = try JSONDecoder().decode(AlbumResponse.self, from: data)
-//                completion(albumsResponse.results?.albummatches?.album ?? [])
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//
-//        }
-//    }
-    
 }
