@@ -133,21 +133,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZB-Ue-cUy" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                    <rect key="frame" x="45" y="28" width="277" height="21"/>
+                                                    <rect key="frame" x="45" y="28" width="414" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXV-RM-Af3">
-                                                    <rect key="frame" x="12" y="31" width="23" height="15"/>
+                                                    <rect key="frame" x="12" y="31" width="23" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4CP-I3-1P8">
-                                                    <rect key="frame" x="330" y="28" width="72" height="21"/>
+                                                    <rect key="frame" x="322" y="28" width="72" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -186,6 +186,10 @@
                                     <action selector="moreButtonPressed" destination="HUa-QS-Kki" eventType="touchUpInside" id="Fwb-mP-CYw"/>
                                 </connections>
                             </button>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-iphone_x" translatesAutoresizingMaskIntoConstraints="NO" id="Ed4-ZD-Gj3">
+                                <rect key="frame" x="322" y="342" width="30" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Nk0-Gi-nRn"/>
@@ -195,6 +199,7 @@
                         <outlet property="albumImageView" destination="cr0-KJ-fyx" id="yy2-Lk-fDk"/>
                         <outlet property="albumNameAndArtistLabel" destination="F5Z-RP-EHz" id="XDr-Dx-hYV"/>
                         <outlet property="moreButton" destination="qMx-cF-H54" id="6KK-NY-9RC"/>
+                        <outlet property="saveAlbumMarkImageView" destination="Ed4-ZD-Gj3" id="LNS-2w-YBr"/>
                         <outlet property="tracksTableView" destination="dHP-Gw-MCa" id="bc2-RM-bfs"/>
                     </connections>
                 </viewController>
@@ -232,7 +237,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAY-Rx-OTL">
-                                                    <rect key="frame" x="20" y="40" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="39" width="30" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -318,7 +323,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yb9-5k-dU0">
-                                                    <rect key="frame" x="109" y="48" width="414" height="23"/>
+                                                    <rect key="frame" x="108" y="48" width="415" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -374,6 +379,7 @@
     </scenes>
     <resources>
         <image name="albumPlaceholder" width="400" height="400"/>
+        <image name="icons8-iphone_x" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9fk-65-x2d"/>
