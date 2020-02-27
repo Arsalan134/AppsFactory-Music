@@ -9,6 +9,7 @@
 import UIKit
 import UIImageColors
 import JGProgressHUD
+import RealmSwift
 
 class ArtistOverviewViewController: UIViewController {
     
@@ -16,7 +17,7 @@ class ArtistOverviewViewController: UIViewController {
     private var albumResponse: AlbumResponse?
     private var colors: UIImageColors?
     
-    //    private var locallyStoredAlbums: [Album] = []
+    private var locallyStoredhAlbums: [Album] = []
     
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var albumsTableView: UITableView!
@@ -31,7 +32,13 @@ class ArtistOverviewViewController: UIViewController {
         setupDetails()
         artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
         
-        //        loadLocalAlbums()
+                loadLocalAlbums()
+    }
+    
+    func loadLocalAlbums() {
+        RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
+            self?.locallyStoredhAlbums = albums
+        }
     }
     
     func setupDetails() {
@@ -80,11 +87,9 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
     //MARK:- Pagination
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as! AlbumTableViewCell
-        
+
         if let album = albumResponse?.data?[indexPath.row] {
-//            RealmManager.shared.loadAlbumsFromRealm { albums in
-//                cell.iphoneImageView.isHidden = albums.filter({$0.id == album.id}).isEmpty
-//            }
+            cell.iphoneImageView.isHidden = locallyStoredhAlbums.filter({$0.id == album.id}).isEmpty
             cell.setValues(with: album, index: indexPath.row, colors: colors)
         }
         
@@ -112,7 +117,6 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! AlbumTableViewCell
@@ -148,7 +152,7 @@ extension ArtistOverviewViewController: MorePressedDelegate {
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
             RealmManager.shared.deleteAlbumFromRealm(withID: album.id)
             self?.presentHUD(with: "Deleted")
-//            self?.albumsTableView.reloadData()
+            self?.albumsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         }
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
@@ -158,6 +162,7 @@ extension ArtistOverviewViewController: MorePressedDelegate {
         }
         
         RealmManager.shared.loadAlbumsFromRealm { albums in
+            
             if albums.filter({$0.id == album.id}).isEmpty {
                 deleteAction.isEnabled = false
             } else {

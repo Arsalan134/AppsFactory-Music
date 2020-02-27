@@ -9,26 +9,28 @@
 import Foundation
 import RealmSwift
 
-struct ArtistDataResponse: Decodable {
-    var id: Int?
-    var title: String?
-    var titleShort: String?
-    var link: String?
-    var duration: Int?
-    var rank: Int?
-    var preview: String?
-    var artist: Artist?
-    var album: Album?
-}
+//struct ArtistDataResponse: Decodable {
+//    var id: Int?
+//    var title: String?
+//    var titleShort: String?
+//    var link: String?
+//    var duration: Int?
+//    var rank: Int?
+//    var preview: String?
+//    var artist: Artist?
+//    var album: Album?
+//}
 
-struct ArtistResponse: Decodable {
-    var data: [ArtistDataResponse]?
-    var next: String?
-    var total: Int?
-}
+//struct ArtistResponse: Decodable {
+//    var data: [ArtistDataResponse]?
+//    var next: String?
+//    var total: Int?
+//}
 
 struct ArtistSearchResponse: Decodable {
     var data: [Artist]?
+    var next: String?
+    var total: Int?
 }
 
 

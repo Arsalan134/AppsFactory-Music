@@ -25,7 +25,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     func setValues(with album: Album) {
         
         albumNameLabel.text = album.title
-        albumArtistLabel.text = album.releaseDate
+        albumArtistLabel.text = ""
         
         albumImageView.image = nil
         

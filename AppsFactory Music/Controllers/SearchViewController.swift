@@ -16,13 +16,40 @@ class SearchViewController: UIViewController {
     
     private var selectedArtistIndex: Int?
     
-    private let searchController = UISearchController(searchResultsController: nil)
+    private var searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         setupSearchBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+                
+//        DispatchQueue.main.async { [weak self] in
+    //        guard let self = self else { return }
+//            self?.searchController.searchBar.searchTextField.becomeFirstResponder()
+//            self?.searchController.searchBar.becomeFirstResponder()
+//        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        searchController.searchBar.searchTextField.resignFirstResponder()
+//        searchController.searchBar.resignFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        searchController.delegate = nil
+        searchController.searchResultsUpdater = nil
+    }
+    
+    deinit {
+        print("Deinitted ...")
     }
     
     func setupSearchBar() {
@@ -99,6 +126,7 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UI
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchController.searchBar.searchTextField.resignFirstResponder()
         searchController.searchBar.resignFirstResponder()
     }
     

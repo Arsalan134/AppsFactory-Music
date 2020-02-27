@@ -11,16 +11,15 @@ import RealmSwift
 
 class RealmManager {
     
-    static let shared = RealmManager()
-    
-    private static var realm: Realm?
+    static var shared = RealmManager()
+    static var realm: Realm?
     
     private init() {
         do {
             var configuration = Realm.Configuration()
             configuration.deleteRealmIfMigrationNeeded = true
             RealmManager.realm = try Realm(configuration: configuration)
-            //            print(RealmManager.realm?.configuration.fileURL ?? "")
+            RealmManager.realm?.autorefresh = true
         } catch let error {
             print(error.localizedDescription)
         }
@@ -29,8 +28,9 @@ class RealmManager {
     func saveAlbumToRealm(_ album: Album) {
         do {
             try RealmManager.realm?.write {
-                RealmManager.realm?.add(album, update: .modified)
-                print("Saved album to realm", album)
+                RealmManager.realm?.add(album, update: .all)
+                try RealmManager.realm?.commitWrite()
+                RealmManager.realm?.refresh()
             }
         } catch {
             print("Realm error @RealmSettings set", error.localizedDescription)
@@ -48,16 +48,20 @@ class RealmManager {
     }
     
     func deleteAlbumFromRealm(withID id: Int) {
-        loadAlbumsFromRealm { albums in
-            if let album = albums.filter({$0.id == id}).first {
-                do {
-                    try RealmManager.realm?.write {
-                        RealmManager.realm?.delete(album)
-                    }
-                } catch {
-                    print(error.localizedDescription)
+        
+        if let album = RealmManager.realm?.objects(Album.self).filter({$0.id == id}).first {
+            do {
+                try RealmManager.realm?.write {
+                    RealmManager.realm?.delete(album)
+                    try RealmManager.realm?.commitWrite()
+                    RealmManager.realm?.refresh()
                 }
+            } catch {
+                print(error.localizedDescription)
+                print("there is error with delete Realm object ! : \(error)")
             }
+        } else {
+            print("aksldkalskdlaksk")
         }
     }
     
