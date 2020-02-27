@@ -25,10 +25,12 @@ class RealmManager {
         }
     }
     
-    func saveAlbumToRealm(_ album: Album) {
+    func saveAlbumToRealm(_ album: Album, tracks: [Track]) {
         do {
             try RealmManager.realm?.write {
                 RealmManager.realm?.add(album, update: .all)
+                RealmManager.realm?.add(tracks, update: .all)
+                
                 try RealmManager.realm?.commitWrite()
                 RealmManager.realm?.refresh()
             }
@@ -45,6 +47,16 @@ class RealmManager {
         }
         
         completion(Array(albumRealm))
+    }
+    
+    func loadTracksFromRealm(of album: Album, completion: @escaping (_ tracks: [Track]) -> Void) {
+        
+        guard let tracksRealm = RealmManager.realm?.objects(Track.self) else {
+            completion([])
+            return
+        }
+        
+        completion(Array(tracksRealm.filter({$0.albumID == album.id})))
     }
     
     func deleteAlbumFromRealm(withID id: Int) {

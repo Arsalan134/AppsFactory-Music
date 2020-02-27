@@ -22,15 +22,11 @@ class AlbumDetailsViewController: UIViewController {
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var albumNameAndArtistLabel: MarqueeLabel!
     
+    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var tracksTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        album name
-        //        artist
-        //        image or imageURL
-        //        tracks
         
         setupDetails()
         setupLayout()
@@ -52,7 +48,7 @@ class AlbumDetailsViewController: UIViewController {
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             guard let self = self else { return }
-            RealmManager.shared.saveAlbumToRealm(album)
+            RealmManager.shared.saveAlbumToRealm(album, tracks: self.tracks)
             self.presentHUD(with: "Saved")
         }
         
@@ -121,17 +117,21 @@ class AlbumDetailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        
-        let leadingSpace: CGFloat = 20
-        
         albumNameAndArtistLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             albumNameAndArtistLabel.bottomAnchor.constraint(equalTo: tracksTableView.topAnchor, constant: -10),
             albumNameAndArtistLabel.heightAnchor.constraint(equalToConstant: 50),
-            albumNameAndArtistLabel.leadingAnchor.constraint(equalTo: tracksTableView.leadingAnchor, constant: leadingSpace),
-            albumNameAndArtistLabel.trailingAnchor.constraint(equalTo: tracksTableView.trailingAnchor, constant: -leadingSpace)
+            albumNameAndArtistLabel.leadingAnchor.constraint(equalTo: tracksTableView.leadingAnchor, constant: 20),
+            albumNameAndArtistLabel.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -10)
         ])
         
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            moreButton.bottomAnchor.constraint(equalTo: tracksTableView.topAnchor, constant: -10),
+            moreButton.heightAnchor.constraint(equalToConstant: 50),
+            moreButton.widthAnchor.constraint(equalToConstant: 50),
+            moreButton.trailingAnchor.constraint(equalTo: tracksTableView.trailingAnchor, constant: -10)
+        ])
     }
     
 }

@@ -27,11 +27,13 @@ class Album: Object, Decodable {
     @objc dynamic var coverBig: String?
     @objc dynamic var coverXl: String?
     @objc dynamic var tracklist: String?
-    
-    @objc dynamic var tracks = List<Track>()
-    
+        
     override static func primaryKey() -> String? {
         return "id"
+    }
+    
+    override class func ignoredProperties() -> [String] {
+        return ["tracks"]
     }
     
 //    static func ==(lhs: Album, rhs: Album) -> Bool {

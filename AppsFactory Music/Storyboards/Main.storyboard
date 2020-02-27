@@ -179,7 +179,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMx-cF-H54">
                                 <rect key="frame" x="348" y="342" width="46" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="..."/>
                                 <connections>
@@ -194,6 +194,7 @@
                     <connections>
                         <outlet property="albumImageView" destination="cr0-KJ-fyx" id="yy2-Lk-fDk"/>
                         <outlet property="albumNameAndArtistLabel" destination="F5Z-RP-EHz" id="XDr-Dx-hYV"/>
+                        <outlet property="moreButton" destination="qMx-cF-H54" id="6KK-NY-9RC"/>
                         <outlet property="tracksTableView" destination="dHP-Gw-MCa" id="bc2-RM-bfs"/>
                     </connections>
                 </viewController>
