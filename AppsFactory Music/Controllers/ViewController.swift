@@ -30,9 +30,16 @@ class ViewController: UIViewController {
         
         // Retrieve local albums
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
-            self?.localAlbums = albums
-            self?.activityIndicator.stopAnimating()
-            self?.albumsCollectionView.reloadData()
+            guard let self = self else { return }
+            self.localAlbums = albums
+            self.activityIndicator.stopAnimating()
+            self.albumsCollectionView.reloadData()
+        }
+        
+        if #available(iOS 13.0, *) {
+            self.navigationController?.navigationBar.tintColor = .label
+        } else {
+            self.navigationController?.navigationBar.tintColor = .white
         }
     }
     

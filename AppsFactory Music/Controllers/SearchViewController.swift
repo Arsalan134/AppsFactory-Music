@@ -22,23 +22,24 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         setupSearchBar()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-                
-//        DispatchQueue.main.async { [weak self] in
-    //        guard let self = self else { return }
-//            self?.searchController.searchBar.searchTextField.becomeFirstResponder()
-//            self?.searchController.searchBar.becomeFirstResponder()
-//        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         
-//        searchController.searchBar.searchTextField.resignFirstResponder()
-//        searchController.searchBar.resignFirstResponder()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.searchController.searchBar.searchTextField.becomeFirstResponder()
+            self.searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -134,8 +135,9 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate, UI
         if searchController.searchBar.text?.count ?? 0 > 0 {
             if let text = searchController.searchBar.text  {
                 API.downloadArtists(withKeyword: text) { [weak self] artists in
-                    self?.artistSearchResult = artists
-                    self?.artistsTableView.reloadData()
+                    guard let self = self else { return }
+                    self.artistSearchResult = artists
+                    self.artistsTableView.reloadData()
                 }
             }
         }

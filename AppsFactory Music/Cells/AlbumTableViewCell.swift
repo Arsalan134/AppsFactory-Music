@@ -9,20 +9,13 @@
 import UIKit
 import UIImageColors
 
-protocol MorePressedDelegate: AnyObject {
-    func morePressed(withAlbumIndex index: Int)
-}
-
 class AlbumTableViewCell: UITableViewCell {
 
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var albumDetailLabel: UILabel!
-    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var iphoneImageView: UIImageView!
-    
-    weak var moreDelegate: MorePressedDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,10 +51,5 @@ class AlbumTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    @IBAction func moreSelected(_ sender: UIButton) {
-        moreDelegate?.morePressed(withAlbumIndex: sender.tag)
-    }
-    
     
 }

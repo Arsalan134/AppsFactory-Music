@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		056DF2B5009AB0C39B95FD3C /* Pods_AppsFactory_Music.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0612CA44580D50098067C5B8 /* Pods_AppsFactory_Music.framework */; };
+		5C548DE52408250A008F6B87 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C548DE42408250A008F6B87 /* Track.swift */; };
+		5C548DE724082EE5008F6B87 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C548DE624082EE5008F6B87 /* TrackTableViewCell.swift */; };
 		5C8289972406A0480014D236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289962406A0480014D236 /* AppDelegate.swift */; };
 		5C8289992406A0480014D236 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289982406A0480014D236 /* SceneDelegate.swift */; };
 		5C82899B2406A0480014D236 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82899A2406A0480014D236 /* ViewController.swift */; };
@@ -25,12 +27,15 @@
 		5C8289C32406A4020014D236 /* SearchArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289C22406A4020014D236 /* SearchArtistTableViewCell.swift */; };
 		5C8289C82406A57D0014D236 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289C72406A57D0014D236 /* API.swift */; };
 		5C88648E240705B400520D98 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C88648D240705B400520D98 /* Structs.swift */; };
+		5CAA39DD24083A4200912288 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA39DC24083A4200912288 /* Functions.swift */; };
 		5CBA88C72406B83200414AE2 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA88C62406B83200414AE2 /* AlbumTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0612CA44580D50098067C5B8 /* Pods_AppsFactory_Music.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppsFactory_Music.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAADC23FD04EC308E81806 /* Pods-AppsFactory Music.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsFactory Music.debug.xcconfig"; path = "Target Support Files/Pods-AppsFactory Music/Pods-AppsFactory Music.debug.xcconfig"; sourceTree = "<group>"; };
+		5C548DE42408250A008F6B87 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Pods/Track.swift; sourceTree = SOURCE_ROOT; };
+		5C548DE624082EE5008F6B87 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTableViewCell.swift; path = Pods/TrackTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		5C8289932406A0480014D236 /* AppsFactory Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppsFactory Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8289962406A0480014D236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8289982406A0480014D236 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +55,7 @@
 		5C8289C22406A4020014D236 /* SearchArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchArtistTableViewCell.swift; sourceTree = "<group>"; };
 		5C8289C72406A57D0014D236 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		5C88648D240705B400520D98 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		5CAA39DC24083A4200912288 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		5CBA88C62406B83200414AE2 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		FF555893E3D1033586E41D96 /* Pods-AppsFactory Music.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsFactory Music.release.xcconfig"; path = "Target Support Files/Pods-AppsFactory Music/Pods-AppsFactory Music.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +128,7 @@
 		5C8289AA2406A0520014D236 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5C548DE42408250A008F6B87 /* Track.swift */,
 				5C8289BA2406A24C0014D236 /* Artist.swift */,
 				5C8289B72406A20B0014D236 /* Album.swift */,
 			);
@@ -142,6 +149,7 @@
 		5C8289AC2406A05D0014D236 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5C548DE624082EE5008F6B87 /* TrackTableViewCell.swift */,
 				5C8289B02406A1D20014D236 /* AlbumCollectionViewCell.swift */,
 				5C8289C22406A4020014D236 /* SearchArtistTableViewCell.swift */,
 				5CBA88C62406B83200414AE2 /* AlbumTableViewCell.swift */,
@@ -154,6 +162,7 @@
 			children = (
 				5C8289B22406A1EE0014D236 /* Extensions.swift */,
 				5C88648D240705B400520D98 /* Structs.swift */,
+				5CAA39DC24083A4200912288 /* Functions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -309,8 +318,11 @@
 				5C8289992406A0480014D236 /* SceneDelegate.swift in Sources */,
 				5C8289C82406A57D0014D236 /* API.swift in Sources */,
 				5C8289B62406A1FC0014D236 /* Realm Manager.swift in Sources */,
+				5CAA39DD24083A4200912288 /* Functions.swift in Sources */,
+				5C548DE52408250A008F6B87 /* Track.swift in Sources */,
 				5C8289B12406A1D20014D236 /* AlbumCollectionViewCell.swift in Sources */,
 				5CBA88C72406B83200414AE2 /* AlbumTableViewCell.swift in Sources */,
+				5C548DE724082EE5008F6B87 /* TrackTableViewCell.swift in Sources */,
 				5C8289B82406A20B0014D236 /* Album.swift in Sources */,
 				5C8289BF2406A3D80014D236 /* ArtistOverviewViewController.swift in Sources */,
 			);

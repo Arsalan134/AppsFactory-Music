@@ -28,6 +28,8 @@ class Album: Object, Decodable {
     @objc dynamic var coverXl: String?
     @objc dynamic var tracklist: String?
     
+    @objc dynamic var tracks = List<Track>()
+    
     override static func primaryKey() -> String? {
         return "id"
     }

@@ -31,7 +31,7 @@ class API {
             guard let data = response.data else {
                 return
             }
-
+            
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -52,18 +52,45 @@ class API {
         } else if let url = url {
             requestURL = url
         }
-            
+        
         AF.request(requestURL).responseJSON { response in
             
             guard let data = response.data else {
                 return
             }
-
+            
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let albumsResponse = try decoder.decode(AlbumResponse.self, from: data)
                 completion(albumsResponse)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    static func downloadTracks(withID id: Int? = nil, withURL url: String? = nil, completion: @escaping (_ trackResponse: TrackResponse) -> Void) {
+        
+        var requestURL = ""
+        if let id = id {
+            requestURL = completeUrl("/album/\(id)/tracks")
+        } else if let url = url {
+            requestURL = url
+        }
+        
+        AF.request(requestURL).responseJSON { response in
+            
+            guard let data = response.data else {
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let tracksResponse = try decoder.decode(TrackResponse.self, from: data)
+                completion(tracksResponse)
             } catch {
                 print(error.localizedDescription)
             }
