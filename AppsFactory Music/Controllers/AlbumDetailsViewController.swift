@@ -39,7 +39,7 @@ class AlbumDetailsViewController: UIViewController {
             return
         }
         
-        let optionMenu = UIAlertController(title: "Chose an option", message: "Choose an option", preferredStyle: .actionSheet)
+        let optionMenu = UIAlertController(title: "Choose an option", message: "You can save selected album directly to your phone", preferredStyle: .actionSheet)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
             guard let self = self else { return }
@@ -87,6 +87,7 @@ class AlbumDetailsViewController: UIViewController {
                     guard let self = self else { return }
                     self.albumImageView.image?.getColors(quality: .lowest, { colors in
                         self.colors = colors
+                        self.navigationController?.navigationBar.tintColor = colors?.detail
                         
                         self.albumNameAndArtistLabel.textColor = colors?.detail
                         self.moreButton.tintColor = colors?.primary

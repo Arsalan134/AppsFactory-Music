@@ -36,6 +36,13 @@ class ArtistOverviewViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.tintColor = colors?.detail
+        loadLocalAlbums()
+    }
+    
     func loadLocalAlbums() {
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
             guard let self = self else { return }

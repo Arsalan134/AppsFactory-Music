@@ -40,7 +40,7 @@
 		5C548DE42408250A008F6B87 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Pods/Track.swift; sourceTree = SOURCE_ROOT; };
 		5C548DE624082EE5008F6B87 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackTableViewCell.swift; path = Pods/TrackTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		5C74CF8D240A9EDA001D7935 /* AlbumTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTrack.swift; sourceTree = "<group>"; };
-		5C8289932406A0480014D236 /* AppsFactory Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppsFactory Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C8289932406A0480014D236 /* AF Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AF Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8289962406A0480014D236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8289982406A0480014D236 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5C82899A2406A0480014D236 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		5C8289942406A0480014D236 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C8289932406A0480014D236 /* AppsFactory Music.app */,
+				5C8289932406A0480014D236 /* AF Music.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,7 +217,7 @@
 			);
 			name = "AppsFactory Music";
 			productName = "AppsFactory Music";
-			productReference = 5C8289932406A0480014D236 /* AppsFactory Music.app */;
+			productReference = 5C8289932406A0480014D236 /* AF Music.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -478,7 +478,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Arsalan.AppsFactory-Music";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "AF Music";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -498,7 +498,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Arsalan.AppsFactory-Music";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "AF Music";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
