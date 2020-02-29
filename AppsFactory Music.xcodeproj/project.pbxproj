@@ -14,7 +14,7 @@
 		5C74CF8E240A9EDA001D7935 /* AlbumTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C74CF8D240A9EDA001D7935 /* AlbumTrack.swift */; };
 		5C8289972406A0480014D236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289962406A0480014D236 /* AppDelegate.swift */; };
 		5C8289992406A0480014D236 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289982406A0480014D236 /* SceneDelegate.swift */; };
-		5C82899B2406A0480014D236 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82899A2406A0480014D236 /* ViewController.swift */; };
+		5C82899B2406A0480014D236 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82899A2406A0480014D236 /* HomeViewController.swift */; };
 		5C8289A02406A04B0014D236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C82899F2406A04B0014D236 /* Assets.xcassets */; };
 		5C8289A32406A04B0014D236 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C8289A12406A04B0014D236 /* LaunchScreen.storyboard */; };
 		5C8289AF2406A1C10014D236 /* AlbumDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8289AE2406A1C10014D236 /* AlbumDetailsViewController.swift */; };
@@ -43,7 +43,7 @@
 		5C8289932406A0480014D236 /* AF Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AF Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8289962406A0480014D236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8289982406A0480014D236 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5C82899A2406A0480014D236 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5C82899A2406A0480014D236 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C82899F2406A04B0014D236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C8289A22406A04B0014D236 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C8289A42406A04B0014D236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		5C8289AB2406A0580014D236 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5C82899A2406A0480014D236 /* ViewController.swift */,
+				5C82899A2406A0480014D236 /* HomeViewController.swift */,
 				5C8289AE2406A1C10014D236 /* AlbumDetailsViewController.swift */,
 				5C8289BE2406A3D80014D236 /* ArtistOverviewViewController.swift */,
 				5C8289C02406A3EA0014D236 /* SearchViewController.swift */,
@@ -314,7 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C88648E240705B400520D98 /* Structs.swift in Sources */,
-				5C82899B2406A0480014D236 /* ViewController.swift in Sources */,
+				5C82899B2406A0480014D236 /* HomeViewController.swift in Sources */,
 				5C8289C12406A3EA0014D236 /* SearchViewController.swift in Sources */,
 				5C8289B32406A1EE0014D236 /* Extensions.swift in Sources */,
 				5C74CF8E240A9EDA001D7935 /* AlbumTrack.swift in Sources */,
