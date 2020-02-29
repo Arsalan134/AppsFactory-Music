@@ -17,7 +17,7 @@ class ArtistOverviewViewController: UIViewController {
     private var albumResponse: AlbumResponse?
     private var colors: UIImageColors?
     
-    private var locallyStoredhAlbums: [Album] = []
+    private var locallyStoredAlbums: [Album] = []
     
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var albumsTableView: UITableView!
@@ -30,32 +30,32 @@ class ArtistOverviewViewController: UIViewController {
         super.viewDidLoad()
         
         setupDetails()
-        artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
         loadLocalAlbums()
+        
+        artistImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: .white)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func loadLocalAlbums() {
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
             guard let self = self else { return }
-            self.locallyStoredhAlbums = albums
+            self.locallyStoredAlbums = albums
+            self.albumsTableView.reloadData()
         }
     }
     
     func setupDetails() {
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         if let imageURL = artist?.pictureXl {
             if let url = URL(string: imageURL) {
                 artistImageView.af.setImage(withURL: url) { [weak self] image in
                     guard let self = self else { return }
                     self.artistImageView.image?.getColors(quality: .lowest, { colors in
                         self.colors = colors
-                        
                         self.navigationController?.navigationBar.tintColor = colors?.detail
                         
                         self.albumsTableView.reloadData()
                         self.albumsLabel.textColor = colors?.detail
+                        
                         UIView.animate(withDuration: 0.5) {
                             self.view.backgroundColor = colors?.background ?? .red
                         }
@@ -68,6 +68,16 @@ class ArtistOverviewViewController: UIViewController {
             API.downloadAlbums(withID: artistID) { [weak self] albumsData in
                 guard let self = self else { return }
                 self.albumResponse = albumsData
+
+                // Sort albums by Release Date
+                self.albumResponse?.data?.sort(by: { (a1, a2) -> Bool in
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    if let date1 = dateFormatter.date(from: a1.releaseDate ?? ""), let date2 = dateFormatter.date(from: a2.releaseDate ?? "") {
+                        return date1 > date2
+                    }
+                    return false
+                })
                 self.albumsTableView.reloadData()
             }
         }
@@ -95,6 +105,7 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
         
         if let album = albumResponse?.data?[indexPath.row] {
             cell.setValues(with: album, index: indexPath.row, colors: colors)
+            cell.iphoneImageView.isHidden = locallyStoredAlbums.filter({$0.id == album.id}).isEmpty
         }
         
         return cell
@@ -115,6 +126,17 @@ extension ArtistOverviewViewController: UITableViewDelegate, UITableViewDataSour
                 guard let self = self else { return }
                 self.albumResponse?.next = albumResponse.next
                 self.albumResponse?.data?.append(contentsOf: albumResponse.data ?? [])
+                
+                // Sort albums by Release Date
+                self.albumResponse?.data?.sort(by: { (a1, a2) -> Bool in
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    if let date1 = dateFormatter.date(from: a1.releaseDate ?? ""), let date2 = dateFormatter.date(from: a2.releaseDate ?? "") {
+                        return date1 > date2
+                    }
+                    return false
+                })
+                
                 self.albumsTableView.reloadData()
             }
         }

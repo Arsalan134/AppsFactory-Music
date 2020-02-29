@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     private var localAlbums: [Album] = []
     
+    @IBOutlet weak var noAlbumLabel: UILabel!
+    
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
     private var selectedCategory: String?
@@ -31,6 +33,7 @@ class ViewController: UIViewController {
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
             guard let self = self else { return }
             self.localAlbums = albums
+            self.noAlbumLabel.isHidden = !albums.isEmpty
             self.albumsCollectionView.reloadData()
         }
         

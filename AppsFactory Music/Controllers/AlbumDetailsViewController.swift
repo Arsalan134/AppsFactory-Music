@@ -103,15 +103,15 @@ class AlbumDetailsViewController: UIViewController {
         
         RealmManager.shared.loadTracksFromRealm(withAlbumID: album.id) { [weak self] tracks in
             guard let self = self else { return }
-            self.tracks = tracks
-            print("realm")
-            self.tracksTableView.reloadData()
+            if self.tracks.isEmpty {
+                self.tracks = tracks
+                self.tracksTableView.reloadData()
+            }
         }
         
         API.downloadTracks(withID: album.id) { [weak self] trackResponse in
             guard let self = self else { return }
             self.tracks = trackResponse.data ?? []
-            print("API")
             self.tracksTableView.reloadData()
         }
         
@@ -119,9 +119,6 @@ class AlbumDetailsViewController: UIViewController {
             guard let self = self else { return }
             self.saveAlbumMarkImageView.isHidden = albums.filter({$0.id == album.id}).isEmpty
         }
-                
-        
-        
     }
     
     private func setupLayout() {
@@ -150,14 +147,13 @@ class AlbumDetailsViewController: UIViewController {
         ])
         
     }
-        
+    
     
     private func presentHUD(with message: String) {
         let hud = JGProgressHUD(style: .dark)
         hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-        hud.vibrancyEnabled = true
+        hud.vibrancyEnabled = false
         hud.interactionType = .blockNoTouches
-        hud.isUserInteractionEnabled = false
         hud.textLabel.text = message
         hud.show(in: self.view)
         hud.dismiss(afterDelay: 1.0)
