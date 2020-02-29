@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     private var localAlbums: [Album] = []
     
     @IBOutlet weak var albumsCollectionView: UICollectionView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var selectedCategory: String?
     
@@ -32,7 +31,6 @@ class ViewController: UIViewController {
         RealmManager.shared.loadAlbumsFromRealm { [weak self] albums in
             guard let self = self else { return }
             self.localAlbums = albums
-            self.activityIndicator.stopAnimating()
             self.albumsCollectionView.reloadData()
         }
         

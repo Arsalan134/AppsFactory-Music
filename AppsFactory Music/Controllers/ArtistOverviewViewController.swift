@@ -47,7 +47,6 @@ class ArtistOverviewViewController: UIViewController {
         
         if let imageURL = artist?.pictureXl {
             if let url = URL(string: imageURL) {
-                
                 artistImageView.af.setImage(withURL: url) { [weak self] image in
                     guard let self = self else { return }
                     self.artistImageView.image?.getColors(quality: .lowest, { colors in

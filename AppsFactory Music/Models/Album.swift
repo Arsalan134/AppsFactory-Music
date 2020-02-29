@@ -26,18 +26,9 @@ class Album: Object, Decodable {
     @objc dynamic var coverMedium: String?
     @objc dynamic var coverBig: String?
     @objc dynamic var coverXl: String?
-    @objc dynamic var tracklist: String?
-        
+            
     override static func primaryKey() -> String? {
         return "id"
     }
-    
-    override class func ignoredProperties() -> [String] {
-        return ["tracks"]
-    }
-    
-//    static func ==(lhs: Album, rhs: Album) -> Bool {
-//        return lhs.title == rhs.title
-//    }
     
 }

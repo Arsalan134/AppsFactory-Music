@@ -27,10 +27,6 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="WzN-MS-jc3">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="799"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="albumCell" id="jdO-bz-dTU" customClass="AlbumCollectionViewCell" customModule="AppsFactory_Music" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="173" height="230"/>
@@ -98,7 +94,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="WzN-MS-jc3" id="tgN-eO-dYO"/>
                         <outlet property="albumsCollectionView" destination="1aI-mb-4fO" id="Zot-RP-ZNL"/>
                         <segue destination="HUa-QS-Kki" kind="show" identifier="albumDetailViewSegue" id="u29-Qv-lgF"/>
                     </connections>
@@ -133,8 +128,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZB-Ue-cUy" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                    <rect key="frame" x="45" y="28" width="414" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="45" y="28" width="269" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -382,6 +377,6 @@
         <image name="icons8-iphone_x" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9fk-65-x2d"/>
+        <segue reference="u29-Qv-lgF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -89,14 +89,7 @@ class API {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let tracksResponse = try decoder.decode(TrackResponse.self, from: data)
-                
-                if let id = id {
-                    tracksResponse.data?.forEach({$0.albumID = id})
-                } else { // In pagination we pass absulute link to next elements but not id. That's why id may become nil
-                    tracksResponse.data?.forEach({$0.albumID = tracksResponse.data?.first?.id})
-                }
-                
+                let tracksResponse = try decoder.decode(TrackResponse.self, from: data)                
                 completion(tracksResponse)
             } catch {
                 print(error.localizedDescription)

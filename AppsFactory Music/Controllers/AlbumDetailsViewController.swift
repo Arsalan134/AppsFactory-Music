@@ -10,6 +10,7 @@ import UIKit
 import MarqueeLabel
 import UIImageColors
 import JGProgressHUD
+import RealmSwift
 
 class AlbumDetailsViewController: UIViewController {
     
@@ -32,7 +33,6 @@ class AlbumDetailsViewController: UIViewController {
         setupDetails()
         setupLayout()
     }
-    
     
     @IBAction func moreButtonPressed() {
         guard let album = album else {
@@ -73,7 +73,6 @@ class AlbumDetailsViewController: UIViewController {
         self.present(optionMenu, animated: true)
     }
     
-    
     private func setupDetails() {
         
         guard let album = album else {
@@ -102,9 +101,17 @@ class AlbumDetailsViewController: UIViewController {
             }
         }
         
+        RealmManager.shared.loadTracksFromRealm(withAlbumID: album.id) { [weak self] tracks in
+            guard let self = self else { return }
+            self.tracks = tracks
+            print("realm")
+            self.tracksTableView.reloadData()
+        }
+        
         API.downloadTracks(withID: album.id) { [weak self] trackResponse in
             guard let self = self else { return }
             self.tracks = trackResponse.data ?? []
+            print("API")
             self.tracksTableView.reloadData()
         }
         
@@ -112,6 +119,8 @@ class AlbumDetailsViewController: UIViewController {
             guard let self = self else { return }
             self.saveAlbumMarkImageView.isHidden = albums.filter({$0.id == album.id}).isEmpty
         }
+                
+        
         
     }
     
@@ -141,6 +150,7 @@ class AlbumDetailsViewController: UIViewController {
         ])
         
     }
+        
     
     private func presentHUD(with message: String) {
         let hud = JGProgressHUD(style: .dark)

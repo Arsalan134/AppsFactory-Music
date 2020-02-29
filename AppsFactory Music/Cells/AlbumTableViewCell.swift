@@ -41,7 +41,18 @@ class AlbumTableViewCell: UITableViewCell {
         // Text
         indexLabel.text = "\(index + 1)"
         albumNameLabel.text = album.title
-        albumDetailLabel.text = album.releaseDate
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MMM dd, yyyy"
+
+        if let releaseDate = album.releaseDate, let date = dateFormatterGet.date(from: releaseDate) {
+            albumDetailLabel.text = "Released: \(dateFormatterPrint.string(from: date))"
+        } else {
+           print("There was an error decoding the string")
+        }
         
         // Image Downloading
         albumImageView.image = nil
