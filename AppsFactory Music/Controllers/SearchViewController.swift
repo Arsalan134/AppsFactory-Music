@@ -13,7 +13,6 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var artistsTableView: UITableView!
     
     private var artistSearchResult: [Artist] = []
-    
     private var selectedArtistIndex: Int?
     
     private var searchController = UISearchController(searchResultsController: nil)
@@ -25,7 +24,6 @@ class SearchViewController: UIViewController {
         
         setupSearchBar()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         setupReachibilityNotifier()
     }
     
@@ -50,7 +48,6 @@ class SearchViewController: UIViewController {
             updateSearchResults(for: searchController)
             
         case .unavailable:
-            
             let okAction = UIAlertAction(title: "OK", style: .default)
             let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again", preferredStyle: .alert)
             alert.addAction(okAction)
@@ -59,7 +56,6 @@ class SearchViewController: UIViewController {
             
         default: return
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,25 +71,12 @@ class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
     }
     
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //
-    ////        DispatchQueue.main.async {
-    //////            guard let self = self else { return }
-    ////            self.searchController.searchBar.searchTextField.becomeFirstResponder()
-    ////        }
-    //    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         NotificationCenter.default.removeObserver(self)
         searchController.searchBar.searchTextField.resignFirstResponder()
         searchController.delegate = nil
-    }
-    
-    deinit {
-        print("Deinitted ...")
     }
     
     func setupSearchBar() {
@@ -107,15 +90,10 @@ class SearchViewController: UIViewController {
         searchController.searchBar.searchBarStyle = .prominent
         searchController.searchBar.placeholder = "Artist"
         searchController.searchBar.autocapitalizationType = .words
-        searchController.searchBar.barTintColor = .red
-        //        searchController.searchBar.setValue("Cancel 2", forKey: "_cancelButtonText")
-        searchController.searchBar.enablesReturnKeyAutomatically = false
-        searchController.searchBar.returnKeyType = .done
+        searchController.searchBar.returnKeyType = .search
         
         navigationItem.searchController = searchController
     }
-    
-    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,7 +103,6 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    
     
 }
 
@@ -172,7 +149,5 @@ extension SearchViewController: UISearchResultsUpdating, UISearchControllerDeleg
             artistsTableView.reloadData()
         }
     }
-    
-    
     
 }

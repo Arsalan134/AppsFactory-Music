@@ -14,7 +14,6 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var albumNameLabel: MarqueeLabel!
-    @IBOutlet weak var albumArtistLabel: MarqueeLabel!
     
     override func awakeFromNib() {
         
@@ -25,7 +24,6 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     func setValues(with album: Album) {
         
         albumNameLabel.text = album.title
-        albumArtistLabel.text = ""
         
         albumImageView.image = nil
         

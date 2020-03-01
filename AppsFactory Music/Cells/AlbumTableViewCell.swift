@@ -37,6 +37,7 @@ class AlbumTableViewCell: UITableViewCell {
         indexLabel.textColor = colors?.detail
         albumNameLabel.textColor = colors?.primary
         albumDetailLabel.textColor = colors?.secondary
+        iphoneImageView.tintColor = colors?.detail
 
         // Text
         indexLabel.text = "\(index + 1)"

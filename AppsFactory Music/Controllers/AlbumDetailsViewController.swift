@@ -32,6 +32,8 @@ class AlbumDetailsViewController: UIViewController {
         
         setupDetails()
         setupLayout()
+        
+        saveAlbumMarkImageView.tintColor = .white
     }
     
     @IBAction func moreButtonPressed() {
@@ -39,7 +41,7 @@ class AlbumDetailsViewController: UIViewController {
             return
         }
         
-        let optionMenu = UIAlertController(title: "Choose an option", message: "You can save selected album directly to your phone", preferredStyle: .actionSheet)
+        let optionMenu = UIAlertController(title: "Choose an action", message: "You can save selected album directly to your phone", preferredStyle: .actionSheet)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
             guard let self = self else { return }
@@ -81,7 +83,7 @@ class AlbumDetailsViewController: UIViewController {
         
         albumNameAndArtistLabel.text = "\(album.title ?? "")"
         
-        if let imageURL = album.coverBig {
+        if let imageURL = album.coverXl {
             if let url = URL(string: imageURL) {
                 albumImageView.af.setImage(withURL: url) { [weak self] _ in
                     guard let self = self else { return }
@@ -90,6 +92,8 @@ class AlbumDetailsViewController: UIViewController {
                         self.navigationController?.navigationBar.tintColor = colors?.detail
                         
                         self.albumNameAndArtistLabel.textColor = colors?.detail
+                        self.saveAlbumMarkImageView.tintColor = colors?.detail
+                        
                         self.moreButton.tintColor = colors?.primary
                         self.albumImageView.fadeView(style: .bottom, percentage: 0.5, bottomColor: colors?.background ?? .black)
                         self.tracksTableView.reloadData()
@@ -141,7 +145,7 @@ class AlbumDetailsViewController: UIViewController {
         
         saveAlbumMarkImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            saveAlbumMarkImageView.centerYAnchor.constraint(equalTo: moreButton.centerYAnchor),
+            saveAlbumMarkImageView.topAnchor.constraint(equalTo: moreButton.topAnchor, constant:  15),
             saveAlbumMarkImageView.heightAnchor.constraint(equalToConstant: 30),
             saveAlbumMarkImageView.widthAnchor.constraint(equalToConstant: 30),
             saveAlbumMarkImageView.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor)

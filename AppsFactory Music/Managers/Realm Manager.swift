@@ -82,7 +82,7 @@ class RealmManager {
                 print("there is error with delete Realm object ! : \(error)")
             }
         } else {
-            print("aksldkalskdlaksk")
+            print("Album with ID: \(id) is not found")
         }
     }
     
